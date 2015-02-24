@@ -1,0 +1,9 @@
+.template 0
+
+if !defined(projectnode.name)
+  if defined(projectnode.longname)
+    projectnode.name = '--$(projectnode.longname:)'
+  endif
+endif
+
+.endtemplate

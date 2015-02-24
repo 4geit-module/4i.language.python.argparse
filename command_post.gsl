@@ -1,0 +1,9 @@
+.template 1
+.
+.#parentnode = projectnode.parent()
+.#echo parentnode.string()
+.#echo item(projectnode) + " " + count(parentnode)
+
+$(indent())sp = subparsers.add_parser('$(projectnode.name:)', help='$(projectnode.description:)', **common_options)
+.
+.endtemplate

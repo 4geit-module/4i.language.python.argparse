@@ -1,0 +1,65 @@
+.template 1
+.
+import argparse, subprocess, sys, os, logging
+from collections import OrderedDict
+
+VERSION = "$(project.branch:)"
+RESOURCES = [ \
+.for root->forgeit.resource as r
+'$(r.name:)', \
+.endfor
+]
+
+LEVELS = OrderedDict([('debug', logging.DEBUG),
+                      ('info', logging.INFO),
+                      ('warning', logging.WARNING),
+                      ('error', logging.ERROR),
+                      ('quiet', logging.CRITICAL),])
+
+logger = logging.getLogger("4i")
+
+def is_file_empty(fn):
+    return os.stat(fn).st_size == 0
+
+def execute(cmd, piped=True, _input=None):
+    logger.debug('execute')
+    logger.debug(cmd)
+    try:
+        if piped:
+            p = subprocess.Popen(cmd.split(), stdin=subprocess.PIPE,
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if _input:
+                out, err = p.communicate(input=_input)
+            else:
+                out, err = p.communicate()
+            logger.debug(out)
+            logger.debug(err)
+            return out, err
+        else:
+            subprocess.call(cmd.split())
+    except KeyboardInterrupt:
+        print('Canceled')
+        sys.exit(-1)
+
+def get_name_branch(item):
+    kwds = item.split('_')
+    name = '_'.join(kwds[:-1])
+    branch = kwds[-1]
+    return name, branch
+
+def listdir(path):
+    try:
+        for item in sorted(os.listdir(path)):
+            yield get_name_branch(item)
+    except OSError:
+        pass
+
+.for projectnode.main as m
+. for m.command as c
+def $(c.name:)(args):
+    logger.debug('$(c.name:)')
+
+. endfor
+.endfor
+.
+.endtemplate

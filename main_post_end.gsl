@@ -1,0 +1,39 @@
+.template 1
+.
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
+
+    args = parser.parse_args()
+
+    if args.levels:
+        print("Here's the verbose levels available:")
+        for keys in LEVELS.keys():
+            print("\t%s" % keys)
+        sys.exit()
+
+    if args.output:
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+            filename=args.output, filemode='a'
+            )
+    else:
+        logging.basicConfig(
+            level=LEVELS.get(args.verbose, logging.NOTSET),
+            format='%(name)-12s: %(levelname)-8s %(message)s'
+        )
+
+    logger.debug(args)
+
+    if args.version:
+        print(VERSION)
+        sys.exit()
+
+    if 'func' not in args:
+        parser.print_help()
+        sys.exit()
+
+    args.func(args)
+.
+.endtemplate

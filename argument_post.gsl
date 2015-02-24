@@ -1,0 +1,29 @@
+.template 1
+.
+$(indent())\
+.
+.if defined(projectnode.parent()) & name(projectnode.parent()) = 'command'
+sp\
+.else
+parser\
+.endif
+.
+\.add_argument('$(projectnode.name:)'\
+.
+.if defined(projectnode.shortname)
+, '$(projectnode.shortname:)', \
+.endif
+.
+, help='$(projectnode.description:)'\
+.
+.if defined(projectnode.nargs)
+, nargs='$(projectnode.nargs:)'\
+.endif
+.
+.if defined(projectnode.default)
+, default='$(projectnode.default:)'\
+.endif
+.
+)
+.
+.endtemplate

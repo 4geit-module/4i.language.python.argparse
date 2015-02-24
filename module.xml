@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<module name="4i.language.python.argparse" branch="master">
+  <module name="4i.language.python" required_branch="master"/>
+
+  <node name="project" debug="True">
+    <attribute name="python_version" required="True"/>
+    <attribute name="description" required="True"/>
+    <node name="output" number="*" pre="output_pre.gsl" post="output_post.gsl">
+      <node name="main" virtual="True" post="main_post.gsl" post_end="main_post_end.gsl" debug="True">
+	<node name="argument" number="*" pre_check="argument_pre_check.gsl" post="argument_post.gsl" post_after="argument_post_after.gsl" debug="True">
+	  <attribute name="name" required="True"/>
+	  <attribute name="longname"/>
+	  <attribute name="shortname"/>
+	  <attribute name="nargs"/>
+	  <attribute name="default"/>
+	  <attribute name="description" required="True"/>
+	</node> <!-- !argument -->
+	<node name="command" number="*" post="command_post.gsl" post_end="command_post_end.gsl" debug="True">
+	  <attribute name="name" required="True"/>
+	  <attribute name="description" required="True"/>
+	  <node ref=":argument"/>
+	</node> <!-- !command -->
+      </node> <!-- !main -->
+    </node> <!-- !output -->
+    <node name="dir" number="*">
+      <node ref=":output"/>
+      <node ref=":dir"/>
+    </node> <!-- !dir -->
+  </node> <!-- !project -->
+</module>

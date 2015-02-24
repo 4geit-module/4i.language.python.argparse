@@ -1,0 +1,6 @@
+.template 1
+.
+$(indent())sp.set_defaults(func=$(projectnode.name:))
+
+.
+.endtemplate

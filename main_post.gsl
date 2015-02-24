@@ -1,0 +1,22 @@
+.template 1
+.
+$(indent())    common_options = {'formatter_class': argparse.ArgumentDefaultsHelpFormatter}
+
+$(indent())    parser = argparse.ArgumentParser(description='$(project.description:)', **common_options)
+
+$(indent())    parser.add_argument('--verbose', '-v', choices=list(LEVELS), default='error', help='Set a verbosity level.')
+$(indent())    parser.add_argument('--levels', '-l', action='store_true', default=False, help='List all the verbosity levels.')
+$(indent())    parser.add_argument('--output', '-o', help='all the logging messages are redirected to the specified filename.')
+$(indent())    parser.add_argument('--debug', '-d', action='store_const', const='debug', dest='verbose', help='Display all the messages.')
+$(indent())    parser.add_argument('--info', '-i', action='store_const', const='info', dest='verbose', help='Display the info messages.')
+$(indent())    parser.add_argument('--warning', '-w', action='store_const', const='warning', dest='verbose', help='Only display the warning and error messages.')
+$(indent())    parser.add_argument('--error', '-e', action='store_const', const='error', dest='verbose', help='Only display the error messages.')
+$(indent())    parser.add_argument('--quiet', '-q', action='store_const', const='quiet', dest='verbose', help='Quiet level of verbosity only displaying the critical error messages.')
+$(indent())    parser.add_argument('--version', '-V', action='store_true', default=False, help='Show the version of $(global.project_name:).')
+
+.if defined(projectnode->command)
+$(indent())    subparsers = parser.add_subparsers(help='Sub-command help.')
+
+.endif
+.
+.endtemplate

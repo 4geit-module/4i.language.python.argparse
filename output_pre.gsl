@@ -1,0 +1,13 @@
+.template 0
+
+echo "ARGPARSE"
+
+# new projectnode.content as c
+#   define c.hook = "end"
+#   define c.context = "4i.language.python"
+#   define c. = "\
+# TOTO
+# "
+# endnew
+
+.endtemplate
