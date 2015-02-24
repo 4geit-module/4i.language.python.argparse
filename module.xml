@@ -5,7 +5,7 @@
   <node name="project" debug="True">
     <attribute name="python_version" required="True"/>
     <attribute name="description" required="True"/>
-    <node name="output" number="*" pre="output_pre.gsl" post="output_post.gsl">
+    <node name="output" number="*" post="output_post.gsl">
       <node name="main" virtual="True" post="main_post.gsl" post_end="main_post_end.gsl" debug="True">
 	<node name="argument" number="*" pre_check="argument_pre_check.gsl" post="argument_post.gsl" post_after="argument_post_after.gsl" debug="True">
 	  <attribute name="name" required="True"/>
