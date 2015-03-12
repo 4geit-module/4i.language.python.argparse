@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<module name="4i.language.python.argparse" branch="master">
+<module name="4i.language.python.argparse" branch="master" description="Extends 4i.language.python module to add command line options to the generated Python code">
   <module name="4i.language.python" required_branch="master"/>
 
   <node name="project" debug="True">
